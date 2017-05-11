@@ -12,6 +12,9 @@
     "autoload": {
         "psr-4": {
             "Yann\\Classes\\": "Yann/Classes/"
-        }
+        },
+        "files": [
+            "./Yann/Classes/conf.php"
+        ]
     }
 }

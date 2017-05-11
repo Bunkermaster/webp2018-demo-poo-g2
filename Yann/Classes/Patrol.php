@@ -10,7 +10,6 @@ namespace Yann\Classes;
 class Patrol
 {
     private $collection;
-    private $quiASalue = [];
     private $uuid;
 
     /**
@@ -31,7 +30,7 @@ class Patrol
 
     /**
      * @param null $uuid
-     * @return array|Stormtrooper
+     * @return array|SaluerInterface
      * @throws \Exception
      */
     public function getCollection($uuid = null)
@@ -43,18 +42,18 @@ class Patrol
 
             return $this->collection[$uuid];
         } else {
-            throw new \Exception('Stormtrooper désigné n\'existe pas');
+            throw new \Exception('La personne désignée n\'existe pas');
         }
     }
 
     /**
-     * @param Stormtrooper $stormtrooper
+     * @param SaluerInterface $trooper
      * @return $this
      * @internal param array $collection
      */
-    public function addToCollection(Stormtrooper $stormtrooper)
+    public function addToCollection(SaluerInterface $trooper)
     {
-        $this->collection[$stormtrooper->getUuid()] = $stormtrooper;
+        $this->collection[$trooper->getUuid()] = $trooper;
 
         return $this;
     }
@@ -78,7 +77,7 @@ class Patrol
     public function saluer()
     {
         foreach($this->collection as $trooper){
-            /** @var Stormtrooper $trooper */
+            /** @var SaluerInterface $trooper */
             $trooper->saluer($this);
         }
     }

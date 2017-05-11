@@ -7,11 +7,12 @@ namespace Yann\Classes;
  * @author Yann Le Scouarnec <bunkermaster@gmail.com>
  * @package Yann\Classes
  */
-class Stormtrooper
+class Stormtrooper implements SaluerInterface
 {
     private $name;
     private $uuid;
     private $quiEstPolite = [];
+    protected $rank = 0;
 
     /**
      * Stormtrooper constructor.
@@ -46,10 +47,10 @@ class Stormtrooper
     public function saluer(Patrol $patrol)
     {
         foreach ($patrol->getCollection() as $uuid => $trooper) {
-            /** @var Stormtrooper $trooper */
+            /** @var SaluerInterface $trooper */
             if ($this->uuid != $uuid && !isset($this->quiEstPolite[$patrol->getUuid()][$trooper->getUuid()])) {
                 $this->quiEstPolite[$patrol->getUuid()][$trooper->getUuid()] = true;
-                echo $this->getName()." : Hi ".$trooper->getName().PHP_EOL;
+                echo $this->getName()." : ".$this->getSalutation($this, $trooper).$trooper->getName().PHP_EOL;
             }
         }
     }
@@ -58,4 +59,18 @@ class Stormtrooper
     {
         echo $this->name  . " : Arrghhhh mamannnnnnnn... X_x".PHP_EOL;
     }
+
+    public function getSalutation(SaluerInterface $saluant, SaluerInterface $salue)
+    {
+        return SALUTATION[$saluant->getRank() <=> $salue->getRank()];
+    }
+
+    /**
+     * @return int
+     */
+    public function getRank(): int
+    {
+        return $this->rank;
+    }
+
 }
