@@ -10,6 +10,24 @@ namespace Yann\Classes;
 class Patrol
 {
     private $collection;
+    private $quiASalue = [];
+    private $uuid;
+
+    /**
+     * Patrol constructor.
+     */
+    public function __construct()
+    {
+        $this->uuid = uniqid();
+    }
+
+    /**
+     * @return string
+     */
+    public function getUuid(): string
+    {
+        return $this->uuid;
+    }
 
     /**
      * @param null $uuid
@@ -56,4 +74,13 @@ class Patrol
             return false;
         }
     }
+
+    public function saluer()
+    {
+        foreach($this->collection as $trooper){
+            /** @var Stormtrooper $trooper */
+            $trooper->saluer($this);
+        }
+    }
+
 }

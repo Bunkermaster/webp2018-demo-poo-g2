@@ -11,6 +11,7 @@ class Stormtrooper
 {
     private $name;
     private $uuid;
+    private $quiEstPolite = [];
 
     /**
      * Stormtrooper constructor.
@@ -39,4 +40,22 @@ class Stormtrooper
         return $this->uuid;
     }
 
+    /**
+     * @param Patrol $patrol
+     */
+    public function saluer(Patrol $patrol)
+    {
+        foreach ($patrol->getCollection() as $uuid => $trooper) {
+            /** @var Stormtrooper $trooper */
+            if ($this->uuid != $uuid && !isset($this->quiEstPolite[$patrol->getUuid()][$trooper->getUuid()])) {
+                $this->quiEstPolite[$patrol->getUuid()][$trooper->getUuid()] = true;
+                echo $this->getName()." : Hi ".$trooper->getName().PHP_EOL;
+            }
+        }
+    }
+
+    public function __destruct()
+    {
+        echo $this->name  . " : Arrghhhh mamannnnnnnn... X_x".PHP_EOL;
+    }
 }
